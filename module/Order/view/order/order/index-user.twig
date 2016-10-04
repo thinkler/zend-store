@@ -1,0 +1,28 @@
+{{ ShowMessages() }}
+
+<h1 class="text-center">Your orders</h1>
+
+{% if orders %}
+    <div class="thumbnail">
+        <table class="table table-hover">
+            <tr>
+                <th>Total Quantity</th>
+                <th>Total Sum</th>
+                <th></th>
+            </tr>
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.quantity }}</td>
+                    <td>{{ order.totalPrice }}</td>
+                    <td>
+                        <a href="{{ url('order', {'action': 'view', 'id': order.id }) }}">
+                            <div class="btn btn-default">Details</div>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% else %}
+    <h1>Empty</h1>
+{% endif %}

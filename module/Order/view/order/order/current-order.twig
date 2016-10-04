@@ -1,0 +1,61 @@
+{{ ShowMessages() }}
+
+<h1 class="text-center title">
+    Current Order
+    {% if not items %}
+        (Empty)
+    {% endif %}
+</h1>
+
+{% if items %}
+    <div class="thumbnail order-table">
+        <table class="table table-hover">
+            <tr>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th class="col-xs-3"></th>
+            </tr>
+            {% for item in items %}
+                <tr class="item-data" data-id="{{ item.id }}">
+                    <td>{{ item.title }}</td>
+                    <td class="item-price">{{ item.price }}</td>
+                    <td class="col-xs-2">
+                        <div class="input-group">
+                            <input class="item-quantity form-control" type="number" max="{{ item.totalCount }}" min="1" value="{{ item.quantity}}">
+                            <span class="input-group-addon limit" id="sizing-addon2"> / <span class="item-limit"> {{ item.totalCount }} </span> </span>
+                        </div>
+                    </td>
+                    <td class="total-item-sum">{{ item.price * item.quantity }}</td>
+                    <td>
+                        <div class="remove-item btn btn-default" data-id="{{ item.id }}">Remove</div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endif %}
+
+<div class="thumbnail  col-xs-3">
+    <div class="container">
+        <h2> Total: <span class="sum">{{ cart.totalSum() }}</span> </h2>
+        <h2> Quantity: <span class="quantity">{{ cart.totalItems() }}</span></h2>
+
+        {% if items %}
+            <a href="{{ url('order', {'action': 'add'}) }}">
+                <div class="btn btn-primary order-btn">
+                    Create
+                </div>
+            </a>
+
+            <a href="{{ url('order', {'action': 'cleanCart'}) }}">
+                <div class="btn btn-danger order-btn">
+                    Clean Cart
+                </div>
+            </a>
+        {% endif %}
+    </div>
+    <br>
+</div>
+
