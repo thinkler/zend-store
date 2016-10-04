@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="col-xs-offset-3 col-xs-5 thumbnail">
+        <h2 class="text-center">{{ item.title }}</h2>
+        <h3></h3>
+        <p> <b>Description:</b> {{ item.description }}</p>
+        <div><b>Price:</b> {{item.price}} $</div>
+        {% if isAllowed('adminPanel') %}
+            <div class="col-xs-12">
+                <a href="{{ url('item', {'action': 'edit', 'id': item.id}) }}">
+                    <span class="btn btn-default">Edit</span>
+                </a>
+                <a href="{{ url('item', {'action': 'delete', 'id': item.id}) }}">
+                    <span class="btn btn-default">Delete</span>
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+

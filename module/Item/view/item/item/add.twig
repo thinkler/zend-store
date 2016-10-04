@@ -1,0 +1,16 @@
+<div class="jumbotron col-xs-offset-4 col-xs-4">
+    <h2 class="text-center">New Item</h2>
+    <form method="{{ form.attributes.method }}" action="{{ url('item', {'action': 'add'}) }}" name='item' enctype="multipart/form-data">
+        {{ formHidden(form.get('id')) }}
+        <div class="form-group">
+            {{ formRow(form.get('title')) }}
+        </div>
+        <div class="form-group">
+            {{ formRow(form.get('price')) }}
+        </div>
+        <div class="form-group">
+            {{ formRow(form.get('description')) }}
+        </div>
+        {{ formSubmit(form.get('submit')) }}
+    </form>
+</div>

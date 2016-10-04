@@ -1,0 +1,45 @@
+{{ ShowMessages() }}
+
+<div class="container">
+    {% for item in paginator %}
+        <div class="col-xs-4">
+            <div class="thumbnail item-data index" data-id="{{ item.id }}">
+                <div class="col-xs-12">
+                    <h3>
+                        {{ item.title }}
+                    </h3>
+                    <p class="item-desc">{{ item.description }}</p>
+                </div>
+                {% if isAllowed('adminPanel') %}
+                    <a href="{{ url('item', { 'action': 'view', 'id': item.id })}}">
+                        <button class="btn btn-default add" type="button">Details</button>
+                    </a>
+                    <a href="{{ url('item', {'action': 'edit', 'id': item.id}) }}">
+                        <span class="btn btn-default">Edit</span>
+                    </a>
+                    <a href="{{ url('item', {'action': 'delete', 'id': item.id}) }}">
+                        <span class="btn btn-default">Delete</span>
+                    </a>
+                {% else %}
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <a href="{{ url('item', { 'action': 'view', 'id': item.id })}}">
+                                <button class="btn btn-default add" type="button">View</button>
+                            </a>
+                            <button class="btn btn-default add" type="button">Add to cart</button>
+                        </span>
+                        <input class="new-item-quantity form-control" type="number" max="{{ item.totalCount }}" min="1" value="1">
+                        <span class="input-group-addon" id="sizing-addon2"> / <span class="item-limit"> {{ item.totalCount }} </span> </span>
+                        <span class="input-group-addon" id="sizing-addon2"> <span class="item-limit"> {{ item.price }} $ </span> </span>
+                    </div>
+                {% endif %}
+                <div class="error-message"></div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<div class="text-center">
+    {{ paginationControl(paginator, 'sliding', 'paginator', { 'route': 'item' }) }}
+</div>
+
